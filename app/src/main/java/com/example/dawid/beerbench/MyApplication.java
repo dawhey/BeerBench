@@ -1,5 +1,6 @@
 package com.example.dawid.beerbench;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -22,5 +23,13 @@ public class MyApplication extends Application {
 
     public static Context getContext() {
         return sInstance.getApplicationContext();
+    }
+
+    private Activity mCurrentActivity = null;
+    public Activity getCurrentActivity(){
+        return mCurrentActivity;
+    }
+    public void setCurrentActivity(Activity mCurrentActivity){
+        this.mCurrentActivity = mCurrentActivity;
     }
 }

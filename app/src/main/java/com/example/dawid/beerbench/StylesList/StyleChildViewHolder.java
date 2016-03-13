@@ -1,15 +1,16 @@
 package com.example.dawid.beerbench.StylesList;
 
-import android.app.FragmentManager;
-import android.graphics.Color;
+import android.app.Activity;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
-import com.example.dawid.beerbench.Models.Category;
 import com.example.dawid.beerbench.Models.Style;
 import com.example.dawid.beerbench.MyApplication;
 import com.example.dawid.beerbench.R;
@@ -33,6 +34,15 @@ public class StyleChildViewHolder extends ChildViewHolder{
                             @Override
                             public void onClick(View v) {
                                 int styleId = findStylebyName(mStyleTextView.getText().toString());
+                                Activity a = MyApplication.getInstance().getCurrentActivity();
+                                AppCompatActivity activity = (AppCompatActivity) a;
+                                FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+                                Fragment fragment = new StyleDetailsFragment();
+                                Bundle args = new Bundle();
+                                args.putInt("id", styleId);
+                                fragment.setArguments(args);
+                                transaction.replace(R.id.container, fragment, "detailsFragment");
+                                transaction.commit();
                             }
                         })
                         .setActionTextColor(MyApplication.getContext().getResources().getColor(R.color.colorAccent))

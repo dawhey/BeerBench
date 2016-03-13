@@ -1,5 +1,6 @@
 package com.example.dawid.beerbench.StylesList;
 
+import android.app.FragmentManager;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
+import com.example.dawid.beerbench.Models.Category;
+import com.example.dawid.beerbench.Models.Style;
 import com.example.dawid.beerbench.MyApplication;
 import com.example.dawid.beerbench.R;
 
@@ -29,7 +32,7 @@ public class StyleChildViewHolder extends ChildViewHolder{
                         .setAction("Show", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                int styleId = findStylebyName(mStyleTextView.getText().toString());
                             }
                         })
                         .setActionTextColor(MyApplication.getContext().getResources().getColor(R.color.colorAccent))
@@ -37,5 +40,18 @@ public class StyleChildViewHolder extends ChildViewHolder{
             }
         });
         mStyleTextView = (TextView) itemView.findViewById(R.id.style_name);
+    }
+
+    private int findStylebyName(String name) {
+        for (int i = 0; i < StylesListFragment.mCategories.size(); i++) {
+            for (int j = 0; j < StylesListFragment.mCategories.get(i).styles.size(); j++) {
+                Object o = StylesListFragment.mCategories.get(i).styles.get(j);
+                Style s = (Style) o;
+                if (s.getName().compareTo(name) == 0) {
+                    return s.getId();
+                }
+            }
+        }
+        return -1;
     }
 }

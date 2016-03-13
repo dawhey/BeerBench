@@ -2,6 +2,7 @@ package com.example.dawid.beerbench.StylesList;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,11 +34,13 @@ import java.util.ArrayList;
  */
 public class StylesListFragment extends Fragment {
 
-    private ArrayList<Category> mCategories = new ArrayList<>();
-    private static final String URL = "https://api.brewerydb.com/v2/menu/styles?key=e2ea0d33e8d787362e34af750b66b157&format=json";
+    public static ArrayList<Category> mCategories = new ArrayList<>();
     private StylesExpandableAdapter mStylesExpandableAdapter;
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
+
+    private static final String URL = "https://api.brewerydb.com/v2/menu/styles?key=e2ea0d33e8d787362e34af750b66b157&format=json";
+    private static final String NO_CONNECTION_ERROR = "Cannot fetch the data, check your internet connection!";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,7 +122,8 @@ public class StylesListFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Something went wrong! " + error, Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), NO_CONNECTION_ERROR, Snackbar.LENGTH_LONG).show();
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
         });
 

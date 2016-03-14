@@ -1,5 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
 
-</RelativeLayout>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingBottom="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/data_layout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Name:"
+                android:id="@+id/name_label"
+                android:layout_marginLeft="35dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="21dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/textDefault"
+                android:id="@+id/name_text_view"
+                android:layout_below="@+id/name_label"
+                android:layout_alignLeft="@+id/name_label"
+                android:layout_alignStart="@+id/name_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Also known as:"
+                android:id="@+id/shortname_label"
+                android:layout_below="@+id/name_text_view"
+                android:layout_alignLeft="@+id/name_text_view"
+                android:layout_alignStart="@+id/name_text_view"
+                android:layout_marginTop="11dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/shortname_text_view"
+                android:textColor="@color/textDefault"
+                android:layout_below="@+id/shortname_label"
+                android:layout_alignLeft="@+id/shortname_label"
+                android:layout_alignStart="@+id/shortname_label"
+                android:layout_alignRight="@+id/name_text_view"
+                android:layout_alignEnd="@+id/name_text_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Description:"
+                android:id="@+id/desc_label"
+                android:layout_marginTop="11dp"
+                android:layout_below="@+id/srm_view"
+                android:layout_alignLeft="@+id/srm_view"
+                android:layout_alignStart="@+id/srm_view" />
+
+            <TextView
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/desc_text_view"
+                android:textColor="@color/textDefault"
+                android:layout_below="@+id/desc_label"
+                android:layout_alignLeft="@+id/desc_label"
+                android:layout_alignStart="@+id/desc_label"
+                android:text="Tripels are often characterized by a complex, sometimes mild spicy character. Clove-like phenolic flavor and aroma may be evident at extremely low levels. Yeast-generated fruity esters, including banana, are also common, but not necessary. These pale/light-colored ales may finish sweet, though any sweet finish should be light. The beer is characteristically medium and clean in body with an equalizing hop/malt balance and a perception of medium to medium high hop bitterness. Traditional Belgian Tripels are often well attenuated. Brewing sugar may be used to lighten the perception of body. Its sweetness will come from very pale malts. There should not be character from any roasted or dark malts. Low hop flavor is acceptable. Alcohol strength and flavor should be perceived as evident. Head retention is dense and mousse-like. Chill haze is acceptable at low serving temperatures. Traditional Tripels are bottle conditioned, may exhibit slight yeast haze but the yeast should not be intentionally roused. Oxidative character if evident in aged Tripels should be mild and pleasant." />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Alcohol by volume:"
+                android:id="@+id/alc_label"
+                android:layout_below="@+id/shortname_text_view"
+                android:layout_alignLeft="@+id/shortname_text_view"
+                android:layout_alignStart="@+id/shortname_text_view"
+                android:layout_marginTop="11dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/alc_text_view"
+                android:textColor="@color/textDefault"
+                android:layout_below="@+id/alc_label"
+                android:layout_alignLeft="@+id/alc_label"
+                android:layout_alignStart="@+id/alc_label"
+                android:layout_alignRight="@+id/alc_label"
+                android:layout_alignEnd="@+id/alc_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="IBU:"
+                android:id="@+id/ibu_label"
+                android:layout_above="@+id/alc_text_view"
+                android:layout_toRightOf="@+id/alc_label"
+                android:layout_toEndOf="@+id/alc_label"
+                android:layout_marginLeft="50dp"
+                android:layout_marginStart="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/ibu_text_view"
+                android:textColor="@color/textDefault"
+                android:layout_below="@+id/ibu_label"
+                android:layout_alignLeft="@+id/ibu_label"
+                android:layout_alignStart="@+id/ibu_label"
+                android:layout_alignRight="@+id/shortname_text_view"
+                android:layout_alignEnd="@+id/shortname_text_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/srm_label"
+                android:layout_below="@+id/alc_text_view"
+                android:layout_alignLeft="@+id/alc_text_view"
+                android:layout_alignStart="@+id/alc_text_view"
+                android:layout_marginTop="9dp"
+                android:layout_alignRight="@+id/alc_text_view"
+                android:layout_alignEnd="@+id/alc_text_view"
+                android:text="Color variety:" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/srm_view"
+                android:layout_below="@+id/progressBar2"
+                android:layout_alignLeft="@+id/srm_label"
+                android:layout_alignStart="@+id/srm_label"
+                android:layout_marginTop="8dp"
+                android:layout_alignRight="@+id/shortname_text_view"
+                android:layout_alignEnd="@+id/shortname_text_view" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar2"
+                android:layout_below="@+id/ibu_label"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -40,8 +40,10 @@ public class StyleChildViewHolder extends ChildViewHolder{
                                 Fragment fragment = new StyleDetailsFragment();
                                 Bundle args = new Bundle();
                                 args.putInt("id", styleId);
+                                args.putString("name", mStyleTextView.getText().toString());
                                 fragment.setArguments(args);
                                 transaction.replace(R.id.container, fragment, "detailsFragment");
+                                transaction.addToBackStack(null);
                                 transaction.commit();
                             }
                         })

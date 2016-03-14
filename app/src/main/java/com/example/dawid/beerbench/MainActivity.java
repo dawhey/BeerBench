@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        StylesListFragment myFragment = (StylesListFragment)getSupportFragmentManager().findFragmentByTag("stylesList");
-        if (myFragment != null && myFragment.isVisible()) {
-            super.onBackPressed();
+        Fragment details = getSupportFragmentManager().findFragmentByTag("detailsFragment");
+        if (!details.isVisible())
+        {
+            moveTaskToBack(true);
         }
     }
 

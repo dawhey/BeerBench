@@ -5,9 +5,7 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Dawid on 12.03.2016.
- */
+
 public class Category implements ParentObject {
 
     private int mId;

@@ -10,6 +10,7 @@ import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter
 import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import com.example.dawid.beerbench.Models.Category;
 import com.example.dawid.beerbench.Models.Style;
+import com.example.dawid.beerbench.MyApplication;
 import com.example.dawid.beerbench.R;
 
 import java.util.List;
@@ -20,7 +21,6 @@ import java.util.List;
 public class StylesExpandableAdapter extends ExpandableRecyclerAdapter<CategoryParentViewHolder, StyleChildViewHolder> {
 
     private LayoutInflater mInflater;
-    private Context mContext;
 
     public StylesExpandableAdapter(Context context, List<ParentObject> parentItemList) {
         super(context, parentItemList);
@@ -41,7 +41,7 @@ public class StylesExpandableAdapter extends ExpandableRecyclerAdapter<CategoryP
     }
 
     @Override
-    public void onBindParentViewHolder(CategoryParentViewHolder categoryParentViewHolder, int i, Object o) {
+    public void onBindParentViewHolder(final CategoryParentViewHolder categoryParentViewHolder, int i, Object o) {
         Category category = (Category) o;
         categoryParentViewHolder.mCategoryTextView.setText(category.getName());
     }

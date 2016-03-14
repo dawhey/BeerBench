@@ -3,6 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dividerLine"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        android:layout_centerHorizontal="true" />
     <TextView
         android:padding="15dp"
         android:layout_width="wrap_content"
@@ -10,6 +16,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:id="@+id/category_name"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -18,6 +26,7 @@
     <ImageButton
         android:id="@+id/parent_list_item_expand_arrow"
         android:layout_width="50dp"
+
         android:layout_height="50dp"
         android:background="@color/background"
         android:src="@drawable/ic_expand_more_black_24dp"

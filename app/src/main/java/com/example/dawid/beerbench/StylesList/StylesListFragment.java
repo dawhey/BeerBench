@@ -46,7 +46,6 @@ public class StylesListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         getActivity().setTitle("Browse styles");
         downloadStyles(URL);
     }
@@ -59,11 +58,11 @@ public class StylesListFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mProgressBar.setIndeterminate(true);
-
+        AppCompatActivity a = (AppCompatActivity) getActivity();
         return v;
     }
 
-    public void parseJsonData(JSONObject response) {
+    public void parseCategoriesJsonData(JSONObject response) {
         try {
             JSONArray data = response.getJSONArray("data");
             for (int i = 0; i < data.length(); i++) {
@@ -112,7 +111,7 @@ public class StylesListFragment extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                parseJsonData(response);
+                parseCategoriesJsonData(response);
                 mStylesExpandableAdapter = new StylesExpandableAdapter(getContext(), generateCategories(mCategories));
                 mStylesExpandableAdapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
                 mStylesExpandableAdapter.setParentClickableViewAnimationDefaultDuration();

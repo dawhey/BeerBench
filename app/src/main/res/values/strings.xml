@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Beer Bench</string>
+    <string name="drawer_open">Opened</string>
+    <string name="drawer_close">Closed</string>
 </resources>

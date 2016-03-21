@@ -1,4 +1,5 @@
 package com.example.dawid.beerbench.StylesList;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
@@ -32,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.dawid.beerbench.Models.Category;
 import com.example.dawid.beerbench.Models.Style;
 import com.example.dawid.beerbench.R;
+import com.example.dawid.beerbench.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -111,7 +113,7 @@ public class StyleDetailsFragment extends Fragment {
     }
 
     private void downloadStyles(String url) {
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -190,5 +192,24 @@ public class StyleDetailsFragment extends Fragment {
             Log.e("JSONException", e.toString());
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null)
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getActivity() != null)
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 }

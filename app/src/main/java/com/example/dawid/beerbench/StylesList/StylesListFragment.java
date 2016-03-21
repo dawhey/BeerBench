@@ -24,6 +24,7 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import com.example.dawid.beerbench.Models.Category;
 import com.example.dawid.beerbench.Models.Style;
 import com.example.dawid.beerbench.R;
+import com.example.dawid.beerbench.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,7 +108,7 @@ public class StylesListFragment extends Fragment {
     }
 
     private void downloadStyles(String url) {
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

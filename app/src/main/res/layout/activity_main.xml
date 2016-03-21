@@ -12,9 +12,9 @@
         android:orientation="vertical">
 
         <!-- The main content view where fragments are loaded -->
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/container"
-            android:background="@color/background"
+            android:background="@color/colorPrimaryLight"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
@@ -26,6 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/white"
+        app:headerLayout="@layout/nav_header"
+        android:background="@color/colorPrimaryLight"
+        app:itemTextColor="@color/textDefault"
         app:menu="@menu/draver_view" />
 </android.support.v4.widget.DrawerLayout>

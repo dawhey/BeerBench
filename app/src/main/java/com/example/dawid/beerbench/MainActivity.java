@@ -1,6 +1,7 @@
 package com.example.dawid.beerbench;
 
 import android.app.Activity;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,12 +15,14 @@ import android.view.MenuItem;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.example.dawid.beerbench.BeerSearch.BeerSearchFragment;
 import com.example.dawid.beerbench.StylesList.StylesListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
+    private NavigationView nvDrawer;
     private MyApplication mApplication;
     private Fragment mStylesListFragment;
 
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawer.setDrawerListener(mDrawerToggle);
+        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        setupDrawerContent(nvDrawer);
         mApplication = (MyApplication)this.getApplicationContext();
 
         if (savedInstanceState == null) {
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!mDrawer.isDrawerOpen(GravityCompat.START))
                     mDrawer.openDrawer(GravityCompat.START);
                 else
-                    mDrawer.closeDrawer(Gravity.LEFT);
+                    mDrawer.closeDrawer(GravityCompat.START);
 
                 return true;
         }
@@ -111,6 +116,47 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the planet to show based on
+        // position
+        Fragment fragment = null;
+
+        Class fragmentClass;
+        switch(menuItem.getItemId()) {
+            case R.id.nav_first_fragment:
+                fragmentClass = StylesListFragment.class;
+                break;
+            case R.id.nav_second_fragment:
+                fragmentClass = BeerSearchFragment.class;
+                break;
+            default:
+                fragmentClass = StylesListFragment.class;
+        }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+
+        setTitle(menuItem.getTitle());
+        mDrawer.closeDrawers();
     }
 
 

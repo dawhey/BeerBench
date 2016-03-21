@@ -205,11 +205,4 @@ public class StyleDetailsFragment extends Fragment {
         if (getActivity() != null)
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (getActivity() != null)
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-    }
 }

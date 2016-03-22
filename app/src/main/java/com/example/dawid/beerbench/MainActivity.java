@@ -10,7 +10,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android.volley.Request;
@@ -20,6 +22,7 @@ import com.example.dawid.beerbench.StylesList.StylesListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    Menu menu;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView nvDrawer;
@@ -85,10 +88,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment details = getSupportFragmentManager().findFragmentByTag("detailsFragment");
-        if (!details.isVisible())
+        if (details != null)
         {
-            moveTaskToBack(true);
+            if (!details.isVisible())
+            {
+                moveTaskToBack(true);
+            }
         }
+        else
+            super.onBackPressed();
+
     }
 
     private void clearReferences(){
@@ -138,9 +147,11 @@ public class MainActivity extends AppCompatActivity {
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
                 fragmentClass = StylesListFragment.class;
+                menu.setGroupVisible(R.id.main_menu_group, false);
                 break;
             case R.id.nav_second_fragment:
                 fragmentClass = BeerSearchFragment.class;
+                menu.setGroupVisible(R.id.main_menu_group, true);
                 break;
             default:
                 fragmentClass = StylesListFragment.class;
@@ -159,5 +170,14 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        this.menu = menu;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        menu.setGroupVisible(R.id.main_menu_group, false);
+
+        return true;
+    }
 }

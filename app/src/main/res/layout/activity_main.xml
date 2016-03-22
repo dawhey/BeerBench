@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/background"
         app:itemTextColor="@color/textDefault"
         app:menu="@menu/draver_view" />
 </android.support.v4.widget.DrawerLayout>

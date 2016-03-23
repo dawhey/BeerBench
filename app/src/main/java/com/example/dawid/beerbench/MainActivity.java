@@ -177,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
         menu.setGroupVisible(R.id.main_menu_group, false);
-
         return true;
     }
 }

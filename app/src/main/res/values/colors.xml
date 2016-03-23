@@ -6,5 +6,7 @@
     <color name="colorPrimaryLight">#FFF3E0</color>
     <color name="background">#FFFFFF</color>
     <color name="textDefault">#424242</color>
+    <color name="itemHeader">#B71C1C</color>
     <color name="dividerLine">#BDBDBD</color>
+    <color name="itemBackground">#FFE082</color>
 </resources>

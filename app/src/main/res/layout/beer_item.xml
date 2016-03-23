@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        card_view:cardElevation="3dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="7dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/cv">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/iconview"
+                android:padding="5dp"
+                android:src="@drawable/unavailable"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true" />
+
+            <TextView
+                android:layout_width="230dp"
+                android:layout_height="50dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/name_text"
+                android:textStyle="bold"
+                android:textColor="@color/itemHeader"
+                android:layout_marginTop="7dp"
+                android:text="Black Fist"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/iconview"
+                android:layout_toEndOf="@+id/iconview" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Wood- and Barrel-Aged Dark Beer"
+                android:id="@+id/style_text"
+                android:textColor="@color/textDefault"
+                android:layout_below="@+id/name_text"
+                android:layout_alignLeft="@+id/name_text"
+                android:layout_alignStart="@+id/name_text"
+                android:gravity="center_vertical" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -161,7 +161,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/progressBar2"
                 android:layout_below="@+id/ibu_label"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:indeterminate="false" />
 
         </RelativeLayout>
 

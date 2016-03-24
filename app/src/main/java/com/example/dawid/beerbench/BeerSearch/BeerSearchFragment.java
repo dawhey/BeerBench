@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,13 +41,16 @@ import java.util.ArrayList;
 /**
  * Created by Dawid on 21.03.2016.
  */
-public class BeerSearchFragment extends Fragment{
+public class BeerSearchFragment extends Fragment {
 
-    private ArrayList<Beer> mQueryList = new ArrayList<>();
+    public static ArrayList<Beer> mQueryList = new ArrayList<>();
     private ProgressBar mProgressBar;
     private TextView mSearchText;
     private ImageView mSearchBottle;
     private RecyclerView mRecyclerView;
+    private SearchView mSearchView;
+    private MenuItem mSearchItem;
+    private BeerSearchAdapter mAdapter;
 
     private static final String NO_CONNECTION_ERROR = "Cannot fetch the data, check your internet connection!";
     private static final String UNAVAILABLE = "Unavailable";
@@ -68,7 +74,11 @@ public class BeerSearchFragment extends Fragment{
         mProgressBar = (ProgressBar) v.findViewById(R.id.progressBar3);
         mProgressBar.setVisibility(View.INVISIBLE);
         mProgressBar.setIndeterminate(true);
-
+        if (!mQueryList.isEmpty()) {
+            mRecyclerView.setAdapter(mAdapter);
+            mSearchBottle.setVisibility(View.INVISIBLE);
+            mSearchText.setVisibility(View.INVISIBLE);
+        }
         return v;
     }
 
@@ -76,8 +86,8 @@ public class BeerSearchFragment extends Fragment{
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.setGroupVisible(R.id.main_menu_group, true);
 
-        MenuItem item = menu.findItem(R.id.search);
-        SearchView mSearchView = (SearchView) item.getActionView();
+        mSearchItem = menu.findItem(R.id.search);
+        mSearchView = (SearchView) mSearchItem.getActionView();
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -85,7 +95,7 @@ public class BeerSearchFragment extends Fragment{
                     mQueryList.clear();
                     String URL = null;
                     try {
-                        URL = "https://api.brewerydb.com/v2/search?q=" + URLEncoder.encode(query, "UTF-8") + "&type=beer&key=e2ea0d33e8d787362e34af750b66b157&format=json";
+                        URL = "https://api.brewerydb.com/v2/search?q=" + URLEncoder.encode(query, "UTF-8") + "&withBreweries=Y&type=beer&key=e2ea0d33e8d787362e34af750b66b157&format=json";
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                         Log.e("URLENCODER", e.toString());
@@ -114,9 +124,23 @@ public class BeerSearchFragment extends Fragment{
             public void onResponse(JSONObject response) {
                 parseBeerJsonData(response);
                 mProgressBar.setVisibility(View.INVISIBLE);
-                BeerSearchAdapter adapter = new BeerSearchAdapter(mQueryList);
+                mAdapter = new BeerSearchAdapter(mQueryList, new BeerSearchAdapter.RecyclerViewClickListener() {
+                    @Override
+                    public void recyclerViewListClicked(View v, int position) {
+                        FragmentManager manager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction transaction = manager.beginTransaction();
+                        BeerDetailsFragment fragment = new BeerDetailsFragment();
+                        Bundle b = new Bundle();
+                        b.putInt("position", position);
+                        fragment.setArguments(b);
+                        transaction.replace(R.id.container, fragment, "beerDetails");
+                        transaction.addToBackStack("beerSearch");
+                        mSearchItem.collapseActionView();
+                        transaction.commit();
+                    }
+                });
                 mRecyclerView.setVisibility(View.VISIBLE);
-                mRecyclerView.setAdapter(adapter);
+                mRecyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -144,7 +168,7 @@ public class BeerSearchFragment extends Fragment{
                 beer.setNameDisplay(record.has("nameDisplay") ? record.getString("nameDisplay") : UNAVAILABLE);
                 beer.setDescription(record.has("description") ? record.getString("description") : UNAVAILABLE);
                 beer.setIbu(record.has("ibu") ? record.getString("ibu") : UNAVAILABLE);
-                beer.setAbv(record.has("abv") ? record.getString("abv") : UNAVAILABLE);
+                beer.setAbv(record.has("abv") ? record.getString("abv") + "%" : UNAVAILABLE);
 
                 if (record.has("labels")) {
                     JSONObject labels = record.getJSONObject("labels");
@@ -155,6 +179,14 @@ public class BeerSearchFragment extends Fragment{
                 if (record.has("style")) {
                     JSONObject style = record.getJSONObject("style");
                     beer.setStyleName(style.has("name") ? style.getString("name") : UNAVAILABLE);
+                }
+
+                if (record.has("breweries")) {
+                    JSONArray breweries = record.getJSONArray("breweries");
+                    if (breweries.length() > 0) {
+                        JSONObject brewery = breweries.getJSONObject(0);
+                        beer.setBreweryName(brewery.has("nameShortDisplay") ? brewery.getString("nameShortDisplay") : UNAVAILABLE);
+                    }
                 }
 
                 mQueryList.add(beer);

@@ -19,9 +19,12 @@ import java.util.ArrayList;
  */
 public class BeerSearchAdapter extends RecyclerView.Adapter<BeerSearchAdapter.ViewHolder> {
     private ArrayList<Beer> mDataset;
+    private static RecyclerViewClickListener itemListener;
 
-    public BeerSearchAdapter(ArrayList<Beer> myDataset) {
+
+    public BeerSearchAdapter(ArrayList<Beer> myDataset, RecyclerViewClickListener listener) {
         mDataset = myDataset;
+        itemListener = listener;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class BeerSearchAdapter extends RecyclerView.Adapter<BeerSearchAdapter.Vi
         return mDataset.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView mNameView;
         public TextView mStyleNameView;
@@ -61,6 +64,19 @@ public class BeerSearchAdapter extends RecyclerView.Adapter<BeerSearchAdapter.Vi
             mNameView = (TextView) v.findViewById(R.id.name_text);
             mStyleNameView = (TextView) v.findViewById(R.id.style_text);
             mIconView = (ImageView) v.findViewById(R.id.iconview);
+            v.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            itemListener.recyclerViewListClicked(v, this.getLayoutPosition());
+
+        }
+    }
+
+    public interface RecyclerViewClickListener
+    {
+
+        public void recyclerViewListClicked(View v, int position);
     }
 }

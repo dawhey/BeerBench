@@ -88,10 +88,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment details = getSupportFragmentManager().findFragmentByTag("detailsFragment");
-        if (details != null)
-        {
-            if (!details.isVisible())
-            {
+        if (details != null) {
+            if (!details.isVisible()) {
                 moveTaskToBack(true);
             }
         }

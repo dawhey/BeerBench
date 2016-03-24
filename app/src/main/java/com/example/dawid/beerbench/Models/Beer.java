@@ -15,6 +15,16 @@ public class Beer {
     private String labelMedium;
     private String styleName;
 
+    public String getBreweryName() {
+        return breweryName;
+    }
+
+    public void setBreweryName(String breweryName) {
+        this.breweryName = breweryName;
+    }
+
+    private String breweryName;
+
     public String getId() {
         return id;
     }

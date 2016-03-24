@@ -100,15 +100,15 @@ public class StyleDetailsFragment extends Fragment {
         mDataLayout.setVisibility(View.INVISIBLE);
 
         mProgressBar = (ProgressBar) v.findViewById(R.id.progressBar2);
+        mProgressBar.setIndeterminate(true);
+        mProgressBar.setVisibility(View.VISIBLE);
         mNameTextView = (TextView) v.findViewById(R.id.name_text_view);
         mShortNameTextView = (TextView) v.findViewById(R.id.shortname_text_view);
         mDescTextView = (TextView) v.findViewById(R.id.desc_text_view);
         mIbuTextView = (TextView) v.findViewById(R.id.ibu_text_view);
         mAlcTextView = (TextView) v.findViewById(R.id.alc_text_view);
         mSrmView = (ImageView) v.findViewById(R.id.srm_view);
-
         mNameTextView.setText(mStyleName);
-
         return v;
     }
 

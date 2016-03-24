@@ -165,6 +165,15 @@
             android:layout_alignEnd="@+id/style_view"
             android:layout_marginBottom="20dp"/>
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar4"
+            android:layout_alignTop="@+id/logo_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="112dp"
+            android:indeterminate="true" />
+
     </RelativeLayout>
 
 </ScrollView>

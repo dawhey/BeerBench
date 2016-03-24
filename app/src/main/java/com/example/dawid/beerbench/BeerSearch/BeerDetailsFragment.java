@@ -2,6 +2,7 @@ package com.example.dawid.beerbench.BeerSearch;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,13 +10,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.dawid.beerbench.Models.Beer;
 import com.example.dawid.beerbench.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by Dawid on 23.03.2016.
@@ -30,6 +31,7 @@ public class BeerDetailsFragment extends Fragment {
     private TextView mAlcTextView;
     private TextView mIbuTextView;
     private ImageView mIconView;
+    private ProgressBar mProgressBar;
 
     Beer mBeer;
 
@@ -53,7 +55,10 @@ public class BeerDetailsFragment extends Fragment {
         mAlcTextView = (TextView) v.findViewById(R.id.alc_view);
         mIbuTextView = (TextView) v.findViewById(R.id.ibu_view);
         mIconView = (ImageView) v.findViewById(R.id.logo_view);
+        mProgressBar = (ProgressBar) v.findViewById(R.id.progressBar4);
 
+
+        mProgressBar.setVisibility(mBeer.getLabelMedium() != null ? View.VISIBLE : View.INVISIBLE);
         mNameTextView.setText(mBeer.getName());
         mBrewedTextView.setText(mBeer.getBreweryName());
         mDescTextView.setText(mBeer.getDescription());
@@ -62,7 +67,18 @@ public class BeerDetailsFragment extends Fragment {
         mIbuTextView.setText(mBeer.getIbu());
 
         if (mBeer.getLabelMedium() != null)
-            Picasso.with(getContext()).load(mBeer.getLabelMedium()).into(mIconView);
+            Picasso.with(getContext()).load(mBeer.getLabelMedium()).into(mIconView, new Callback() {
+                @Override
+                public void onSuccess() {
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onError() {
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    Snackbar.make(getView(), "Error! Image could not be loaded.", Snackbar.LENGTH_LONG).show();
+                }
+            });
         else
             mIconView.setImageResource(R.drawable.nolabellarge);
 
@@ -76,8 +92,8 @@ public class BeerDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        getActivity().getSupportFragmentManager().popBackStack();
+    public void onDetach() {
+        getActivity().getSupportFragmentManager().popBackStackImmediate();
+        super.onDetach();
     }
 }

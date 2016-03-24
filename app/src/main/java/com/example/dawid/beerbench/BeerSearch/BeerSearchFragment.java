@@ -180,6 +180,8 @@ public class BeerSearchFragment extends Fragment {
                     JSONObject style = record.getJSONObject("style");
                     beer.setStyleName(style.has("name") ? style.getString("name") : UNAVAILABLE);
                 }
+                else
+                    beer.setStyleName(UNAVAILABLE);
 
                 if (record.has("breweries")) {
                     JSONArray breweries = record.getJSONArray("breweries");
